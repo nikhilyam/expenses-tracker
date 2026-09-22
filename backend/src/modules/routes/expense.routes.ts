@@ -1,0 +1,12 @@
+import { Router } from 'express';
+import { createController, deleteController, listController, updateController } from '../controllers/expense.controller.js';
+import { requireAuth } from '../../middlewares/auth.middleware.js';
+import { validate } from '../../middlewares/validate.middleware.js';
+import { expenseSchema, idSchema, paginationSchema } from '../../validators/schemas.js';
+const router = Router();
+router.use(requireAuth);
+router.get('/', validate(paginationSchema, 'query'), listController);
+router.post('/', validate(expenseSchema), createController);
+router.put('/:id', validate(idSchema, 'params'), validate(expenseSchema), updateController);
+router.delete('/:id', validate(idSchema, 'params'), deleteController);
+export default router;

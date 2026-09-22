@@ -1,0 +1,21 @@
+import cors from 'cors';
+import express from 'express';
+import helmet from 'helmet';
+import { pinoHttp } from 'pino-http';
+import { env } from './config/env.config.js';
+import { logger } from './logger/pino.logger.js';
+import { errorHandler } from './middlewares/errorHandler.middleware.js';
+import authRoutes from './modules/routes/auth.routes.js';
+import expenseRoutes from './modules/routes/expense.routes.js';
+import reportRoutes from './modules/routes/report.routes.js';
+
+export const app = express();
+app.use(helmet());
+app.use(cors({ origin: env.CORS_ORIGIN }));
+app.use(express.json());
+app.use(pinoHttp({ logger }));
+app.get('/health', (_req, res) => res.json({ status: 'ok' }));
+app.use('/api/auth', authRoutes);
+app.use('/api/expenses', expenseRoutes);
+app.use('/api/reports', reportRoutes);
+app.use(errorHandler);

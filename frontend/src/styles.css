@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+:root { font-family: Inter, ui-sans-serif, sans-serif; color: #17211b; background: #f6f3ea; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+@layer components { .input { @apply mt-1 w-full rounded-xl border border-ink/15 bg-cream px-3 py-2.5 font-normal outline-none transition focus:border-sage focus:ring-2 focus:ring-sage/20; } .label { @apply block text-sm font-semibold; } }
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } } .animate-rise { animation: rise .5s ease-out both; }
